@@ -1,7 +1,7 @@
-import express from 'express'
-import indexController from './controllers/index'
-import serverRenderer from './middleware/renderer'
-import configureStore from '../client/src/store/configureStore'
+const express = require('express')
+const indexController = require('./controllers/index')
+const serverRenderer = require('./middleware/renderer')
+const { configureStore } = require('../client/build/static/js')
 
 const PORT = 8000
 const path = require('path')

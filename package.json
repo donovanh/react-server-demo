@@ -10,6 +10,7 @@
     "concurrently": "^3.5.1",
     "express": "^4.16.3",
     "ignore-styles": "^5.0.1",
+    "nodemon": "^1.17.3",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-loadable": "^5.3.1",
@@ -20,10 +21,7 @@
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "client": "npm run start --prefix client",
-    "server": "NODE_ENV=development nodemon server/bootstrap.js",
+    "server": "NODE_ENV=development nodemon server",
     "build": "npm run build --prefix client"
-  },
-  "devDependencies": {
-    "nodemon": "^1.17.3"
   }
 }

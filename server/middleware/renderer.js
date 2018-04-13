@@ -1,13 +1,13 @@
-import React from 'react'
-import ReactDOMServer from 'react-dom/server'
-import { Provider as ReduxProvider } from 'react-redux'
+const { createElement } = require('react')
+const ReactDOMServer = require('react-dom/server')
+const { Provider } = require('react-redux')
 
-// import our main App component
-import App from '../../client/src/App'
+// const our main App component
+const { App } = require('../../client/build/static/js')
 const path = require('path')
 const fs = require('fs')
 
-export default (store) => (req, res, next) => {
+module.exports = (store) => (req, res, next) => {
   // point to the html file created by CRA's build tool
   const filePath = path.resolve(__dirname, '..', '..', 'client', 'build', 'index.html')
   fs.readFile(filePath, 'utf8', (err, htmlData) => {
@@ -17,9 +17,7 @@ export default (store) => (req, res, next) => {
     }
     // render the app as a string
     const html = ReactDOMServer.renderToString(
-      <ReduxProvider store={store}>
-        <App />
-      </ReduxProvider>
+      createElement(Provider, {store}, createElement(App)),
     )
     const reduxState = JSON.stringify(store.getState())
     // inject the rendered app into our html and send it
@@ -28,7 +26,7 @@ export default (store) => (req, res, next) => {
         '<div id="root"></div>',
         `<div id="root">${html}</div>`
       )
-      .replace('"__SERVER_REDUX_STATE__"', reduxState)
+      .replace(/window.REDUX_STATE\s*=[^\n]+/, reduxState)
     return res.send(output)
   })
 }
