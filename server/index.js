@@ -10,7 +10,7 @@ const router = express.Router()
 router.use('^/$', serverRenderer)
 // other static resources should just be served as they are
 router.use(express.static(
-  path.resolve(__dirname, '..', 'build'),
+  path.resolve(__dirname, '..', 'client', 'build'),
   { maxAge: '30d' }
 ))
 // tell the app to use the above rules

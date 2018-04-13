@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 // import our main App component
-import App from '../client/src/App'
+import App from '../../client/src/App'
 const path = require('path')
 const fs = require('fs')
 export default (req, res, next) => {
   // point to the html file created by CRA's build tool
-  const filePath = path.resolve(__dirname, '..', 'client', 'build', 'index.html')
+  const filePath = path.resolve(__dirname, '..', '..', 'client', 'build', 'index.html')
   fs.readFile(filePath, 'utf8', (err, htmlData) => {
     if (err) {
       console.error('err', err)
