@@ -1,8 +1,7 @@
-import express from 'express'
+const express = require('express')
 
-import serverRenderer from '../middleware/renderer'
-import configureStore from '../../client/src/store/configureStore'
-import { setMessage } from '../../client/src/store/appReducer'
+const serverRenderer = require('../middleware/renderer')
+const { configureStore, setMessage } = require('../../client/build/static/js')
 
 const router = express.Router()
 const path = require('path')
@@ -22,4 +21,4 @@ router.use(express.static(
   { maxAge: '30d' }
 ))
 
-export default router
+module.exports = router
