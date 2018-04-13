@@ -1,13 +1,20 @@
 import express from 'express'
-// we'll talk about this in a minute:
+import indexController from './controllers/index'
 import serverRenderer from './middleware/renderer'
+import configureStore from '../client/src/store/configureStore'
+
 const PORT = 8000
 const path = require('path')
+
 // initialize the application and create the routes
 const app = express()
+app.use(indexController)
+
 const router = express.Router()
 // root (/) should always serve our server rendered page
-router.use('^/$', serverRenderer)
+const store = configureStore()
+
+router.use('^/$', serverRenderer(store))
 // other static resources should just be served as they are
 router.use(express.static(
   path.resolve(__dirname, '..', 'client', 'build'),
@@ -15,6 +22,7 @@ router.use(express.static(
 ))
 // tell the app to use the above rules
 app.use(router)
+
 // start the app
 app.listen(PORT, (error) => {
   if (error) {
