@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
 import { connect } from 'react-redux'
-import { setMessage } from './store/appReducer'
+import { setMessage } from './store/actions'
 
 class App extends Component {
   componentDidMount () {
@@ -30,7 +30,7 @@ export default connect(
   ({ app }) => ({
     message: app.message
   }),
-  dispatch => ({
-    updateMessage: (txt) => dispatch(setMessage(txt))
-  })
+  {
+    updateMessage: setMessage
+  }
 )(App)

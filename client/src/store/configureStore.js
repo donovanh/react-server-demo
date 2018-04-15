@@ -1,18 +1,19 @@
 import {
   createStore,
-  combineReducers,
   compose,
   applyMiddleware
 } from 'redux'
-import ReduxThunk from 'redux-thunk'
-import { appReducer } from './appReducer'
-// if you're using redux-thunk or other middlewares, add them here
+import createSagaMiddleware from 'redux-saga'
+import reducers from './reducers'
+
+export const sagaMiddleware = createSagaMiddleware()
+
 const createStoreWithMiddleware = compose(applyMiddleware(
-  ReduxThunk
+  sagaMiddleware
 ))(createStore)
-const rootReducer = combineReducers({
-  app: appReducer
-})
-export default function configureStore (initialState = {}) {
-  return createStoreWithMiddleware(rootReducer, initialState)
-};
+
+export const configureStore = (initialState = {}) => {
+  return createStoreWithMiddleware(reducers, initialState)
+}
+
+export { default as sagas } from './sagas'
