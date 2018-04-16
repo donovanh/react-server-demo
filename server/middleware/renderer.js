@@ -3,17 +3,15 @@ const ReactDOMServer = require('react-dom/server')
 const { Provider } = require('react-redux')
 
 // const our main App component
-const { App } = require('../../client/build/static/js')
+const { App, globalStyleRules } = require('../../client/build/static/js')
 const path = require('path')
 const fs = require('fs')
 
 const { ServerStyleSheet, injectGlobal } = require('styled-components')
-const globalStyleRules = require('../../client/src/theme/globalStyleRules')
-
-injectGlobal`${globalStyleRules}`
 
 module.exports = (store) => (req, res, next) => {
   // point to the html file created by CRA's build tool
+  injectGlobal`${globalStyleRules}`
   const filePath = path.resolve(__dirname, '..', '..', 'client', 'build', 'index.html')
   fs.readFile(filePath, 'utf8', (err, htmlData) => {
     if (err) {
