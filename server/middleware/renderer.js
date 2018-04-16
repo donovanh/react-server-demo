@@ -30,7 +30,10 @@ module.exports = (store) => (req, res, next) => {
     const output = htmlData
       .replace(
         '<div id="root"></div>',
-        `<div id="root">${html}</div>${styles}`
+        `
+          <div id="root">${html}</div>
+          ${styles}
+        `
       )
       .replace(/window.REDUX_STATE\s*=[^\n]+/, reduxState)
     return res.send(output)

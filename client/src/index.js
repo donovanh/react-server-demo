@@ -7,16 +7,12 @@ import Loadable from 'react-loadable'
 import { Provider as ReduxProvider } from 'react-redux'
 import { configureStore } from './store'
 
-import ThemeProvider from './theme/ThemeProvider'
-
 if (typeof window !== 'undefined') {
   const store = configureStore(window.REDUX_STATE || {})
 
   const AppBundle = (
     <ReduxProvider store={store}>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <App />
     </ReduxProvider>
   )
 

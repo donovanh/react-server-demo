@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import { setMessage } from '../store/appReducer'
 import Heading from '../components/Heading'
 import globalStyles from '../theme/globalStyles'
-
-globalStyles()
+import ThemeProvider from '../theme/ThemeProvider'
 
 class App extends Component {
   componentDidMount () {
@@ -14,10 +13,13 @@ class App extends Component {
   }
 
   render () {
+    globalStyles()
     return (
-      <div className='App'>
-        <Heading>Redux: { this.props.message }</Heading>
-      </div>
+      <ThemeProvider>
+        <div className='App'>
+          <Heading>Redux: { this.props.message }</Heading>
+        </div>
+      </ThemeProvider>
     )
   }
 }
