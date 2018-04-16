@@ -3,12 +3,15 @@ const ReactDOMServer = require('react-dom/server')
 const { Provider } = require('react-redux')
 
 // const our main App component
-const { App } = require('../../client/build/static/js')
+const { App, globalStyleRules } = require('../../client/build/static/js')
 const path = require('path')
 const fs = require('fs')
 
+const { ServerStyleSheet, injectGlobal } = require('styled-components')
+
 module.exports = (store) => (req, res, next) => {
   // point to the html file created by CRA's build tool
+  injectGlobal`${globalStyleRules}`
   const filePath = path.resolve(__dirname, '..', '..', 'client', 'build', 'index.html')
   fs.readFile(filePath, 'utf8', (err, htmlData) => {
     if (err) {
@@ -16,15 +19,22 @@ module.exports = (store) => (req, res, next) => {
       return res.status(404).end()
     }
     // render the app as a string
+    const sheet = new ServerStyleSheet()
     const html = ReactDOMServer.renderToString(
-      createElement(Provider, {store}, createElement(App)),
+      sheet.collectStyles(
+        createElement(Provider, {store}, createElement(App))
+      )
     )
+    const styles = sheet.getStyleTags()
     const reduxState = JSON.stringify(store.getState())
     // inject the rendered app into our html and send it
     const output = htmlData
       .replace(
         '<div id="root"></div>',
-        `<div id="root">${html}</div>`
+        `
+          <div id="root">${html}</div>
+          ${styles}
+        `
       )
       .replace(/window.REDUX_STATE\s*=[^\n]+/, reduxState)
     return res.send(output)
