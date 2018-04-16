@@ -4,7 +4,7 @@ import './App.css'
 import { connect } from 'react-redux'
 import { setMessage } from './store/actions'
 
-class App extends Component {
+export class App extends Component {
   componentDidMount () {
     if (!this.props.message) {
       this.props.updateMessage("Hi, I'm from client!")
