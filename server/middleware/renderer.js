@@ -7,7 +7,10 @@ const { App } = require('../../client/build/static/js')
 const path = require('path')
 const fs = require('fs')
 
-const { ServerStyleSheet } = require('styled-components')
+const { ServerStyleSheet, injectGlobal } = require('styled-components')
+const globalStyleRules = require('../../client/src/theme/globalStyleRules')
+
+injectGlobal`${globalStyleRules}`
 
 module.exports = (store) => (req, res, next) => {
   // point to the html file created by CRA's build tool

@@ -1,9 +1,4 @@
-import { injectGlobal } from 'styled-components';
+import { injectGlobal } from 'styled-components'
+import globalStyleRules from './globalStyleRules'
 
-export default () => injectGlobal`
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-  }
-`;
+export default () => injectGlobal`${globalStyleRules}`
