@@ -19,9 +19,4 @@ Object.assign = require('object-assign')
 // We don't polyfill it in the browser--this is user's responsibility.
 if (process.env.NODE_ENV === 'test') {
   require('raf').polyfill(global)
-
-  const { configure } = require('enzyme')
-  const Adapter = require('enzyme-adapter-react-16')
-
-  configure({ adapter: new Adapter() })
 }
