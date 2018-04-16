@@ -17,7 +17,7 @@ if (typeof window !== 'undefined') {
       <App />
     </Provider>
   )
-  
+
   window.onload = () => {
     Loadable.preloadReady().then(() => {
       ReactDOM.hydrate(
@@ -27,8 +27,9 @@ if (typeof window !== 'undefined') {
     })
   }
 
-  import('./registerServiceWorker')
-    .then(({ default: register }) => register())
+  // TODO: Implement service worker for PWA
+  // import('./registerServiceWorker')
+  //   .then(({ default: register }) => register())
 }
 
 export { App }
