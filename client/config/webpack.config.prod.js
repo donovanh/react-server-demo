@@ -345,15 +345,15 @@ const conf = {
 // previously: module.exports = conf
 module.exports = [
   merge({}, conf, {
-    // for browser
-    target: 'web'
-  }),
-  merge({}, conf, {
     // for server-side-rendering
     target: 'node',
     output: {
       filename: 'static/js/index.js',
       libraryTarget: 'commonjs2'
     }
+  }),
+  merge({}, conf, {
+    // for browser
+    target: 'web'
   })
 ]

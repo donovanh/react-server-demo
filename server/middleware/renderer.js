@@ -43,7 +43,7 @@ module.exports = (req, res, next) => {
             '<div id="root"></div>',
             `<div id="root">${html}</div>`
           )
-          .replace(/window.REDUX_STATE\s*=[^\n]+/, reduxState)
+          .replace(/window.REDUX_STATE\s*=[^\n]{2}/, `window.REDUX_STATE=${reduxState}`)
         return res.send(output)
       })
       .catch(e => console.log(e))
