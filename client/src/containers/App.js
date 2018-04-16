@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setMessage } from '../store/appReducer'
+import { setMessage } from '../store/actions'
 import Heading from '../components/Heading'
 import globalStyles from '../theme/globalStyles'
 import ThemeProvider from '../theme/ThemeProvider'
 
-class App extends Component {
+export class App extends Component {
   componentDidMount () {
     if (!this.props.message) {
       this.props.updateMessage("Hi, I'm from client!")
@@ -28,7 +28,7 @@ export default connect(
   ({ app }) => ({
     message: app.message
   }),
-  dispatch => ({
-    updateMessage: (txt) => dispatch(setMessage(txt))
-  })
+  {
+    updateMessage: setMessage
+  }
 )(App)

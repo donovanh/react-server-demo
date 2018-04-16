@@ -3,18 +3,20 @@ import ReactDOM from 'react-dom'
 import App from './containers/App'
 
 import Loadable from 'react-loadable'
-import { Provider as ReduxProvider } from 'react-redux'
-import { configureStore } from './store'
+import { Provider } from 'react-redux'
+import { configureStore, sagas, sagaMiddleware } from './store'
 
 import globalStyleRules from './theme/globalStyleRules'
 
 if (typeof window !== 'undefined') {
   const store = configureStore(window.REDUX_STATE || {})
 
+  sagaMiddleware.run(sagas)
+
   const AppBundle = (
-    <ReduxProvider store={store}>
+    <Provider store={store}>
       <App />
-    </ReduxProvider>
+    </Provider>
   )
 
   window.onload = () => {
@@ -26,9 +28,10 @@ if (typeof window !== 'undefined') {
     })
   }
 
-  import('./registerServiceWorker')
-    .then(({default: register}) => register())
+  // TODO: Implement service worker for PWA
+  // import('./registerServiceWorker')
+  //   .then(({ default: register }) => register())
 }
 
-export {App, globalStyleRules}
+export { App, globalStyleRules }
 export * from './store'
