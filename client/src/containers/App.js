@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
-import './App.css'
 import { connect } from 'react-redux'
-import { setMessage } from './store/appReducer'
+import { setMessage } from '../store/appReducer'
+import Heading from '../components/Heading'
+import globalStyles from '../theme/globalStyles'
+
+globalStyles()
 
 class App extends Component {
   componentDidMount () {
@@ -14,13 +16,7 @@ class App extends Component {
   render () {
     return (
       <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h1 className='App-title'>Welcome to React</h1>
-        </header>
-        <p>
-            Redux: { this.props.message }
-        </p>
+        <Heading>Redux: { this.props.message }</Heading>
       </div>
     )
   }
