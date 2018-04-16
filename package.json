@@ -20,9 +20,8 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
-    "build:server": "npm-run-all -s client:build server",
-    "build": "npm run build --prefix client",
-    "client:build": "npm run build --prefix client",
+    "build:client": "npm run build --prefix client",
+    "build:server": "npm-run-all -s build:client server",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run build:server\" \"npm run client\"",
     "server": "nodemon server"
